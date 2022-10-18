@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.model;
+package ru.kata.spring.boot_security.task3_1_2.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

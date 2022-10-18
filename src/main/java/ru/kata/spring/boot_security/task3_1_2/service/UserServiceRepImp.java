@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.service;
+package ru.kata.spring.boot_security.task3_1_2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-import ru.kata.spring.boot_security.demo.security.UserDetails;
+import ru.kata.spring.boot_security.task3_1_2.model.Role;
+import ru.kata.spring.boot_security.task3_1_2.model.User;
+import ru.kata.spring.boot_security.task3_1_2.repositories.UserRepository;
+import ru.kata.spring.boot_security.task3_1_2.security.UserDetails;
 
 import java.util.*;
 
@@ -85,7 +85,7 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new ru.kata.spring.boot_security.demo.security.UserDetails(user.get());
+        return new ru.kata.spring.boot_security.task3_1_2.security.UserDetails(user.get());
 
     }
 }

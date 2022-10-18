@@ -1,7 +1,7 @@
-package ru.kata.spring.boot_security.demo.security;
+package ru.kata.spring.boot_security.task3_1_2.security;
 
 import org.springframework.security.core.GrantedAuthority;
-import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.task3_1_2.model.User;
 
 import java.util.Collection;
 

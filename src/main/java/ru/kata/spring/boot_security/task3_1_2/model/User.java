@@ -1,6 +1,4 @@
-package ru.kata.spring.boot_security.demo.model;
-
-import org.hibernate.validator.constraints.UniqueElements;
+package ru.kata.spring.boot_security.task3_1_2.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;

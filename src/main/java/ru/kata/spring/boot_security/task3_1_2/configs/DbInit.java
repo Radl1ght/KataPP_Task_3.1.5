@@ -1,10 +1,10 @@
-package ru.kata.spring.boot_security.demo.configs;
+package ru.kata.spring.boot_security.task3_1_2.configs;
 
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.model.Role;
-import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security.task3_1_2.model.Role;
+import ru.kata.spring.boot_security.task3_1_2.model.User;
+import ru.kata.spring.boot_security.task3_1_2.repositories.RoleRepository;
+import ru.kata.spring.boot_security.task3_1_2.service.UserService;
 
 import javax.annotation.PostConstruct;
 
