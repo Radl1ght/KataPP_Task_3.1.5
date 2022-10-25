@@ -22,14 +22,14 @@ public class DbInit {
 
     @PostConstruct
     private void postConstruct() {
-        roleRepository.save(new Role(1L, "ROLE_USER"));
-        roleRepository.save(new Role(2L, "ROLE_ADMIN"));
+        roleRepository.save(new Role(1L, "USER"));
+        roleRepository.save(new Role(2L, "ADMIN"));
         User user = new User("user", "user", "user@mail.ru", "user", "user");
         userService.add(user);
         User admin = new User("admin", "admin", "admin@mail.ru", "admin", "admin");
         userService.add(admin);
         userService.makeAdmin(admin.getId(), admin);
-        User radlight = new User("radlight", "radlight", "bm2000max@mail.ru", "Radlight", "77Uparem");
+        User radlight = new User("radlight", "radlight", "bm2000max@mail.ru", "Radlight", "2280");
         userService.add(radlight);
         userService.makeAdmin(radlight.getId(), radlight);
     }

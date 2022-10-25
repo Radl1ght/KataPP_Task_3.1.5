@@ -30,9 +30,11 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void add(User user) {
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(new Role(1L, "ROLE_USER"));
-        user.setRoles(roleSet);
+        if (user.getRoles() == null) {
+            Set<Role> roleSet = new HashSet<>();
+            roleSet.add(new Role(1L, "USER"));
+            user.setRoles(roleSet);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
@@ -73,7 +75,7 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
     @Override
     public void makeAdmin(long id, User adminCandidate) {
         Set<Role> set = adminCandidate.getRoles();
-        set.add(new Role(2L, "ROLE_ADMIN"));
+        set.add(new Role(2L, "ADMIN"));
         adminCandidate.setRoles(set);
         userRepository.save(adminCandidate);
     }
