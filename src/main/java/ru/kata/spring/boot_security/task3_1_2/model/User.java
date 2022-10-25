@@ -21,6 +21,9 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "email")
     @Size(min = 4, max = 45, message = "Поле email должно содержать от 4 до 45 символов")
     private String email;
@@ -41,18 +44,20 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String username, String password) {
+    public User(String firstName, String lastName, Integer age, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.username = username;
         this.password = password;
     }
 
-    public User(Long id, String firstName, String lastName, String email, String username, String password, Set<Role> roles) {
+    public User(Long id, String firstName, String lastName, Integer age, String email, String username, String password, Set<Role> roles) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.username = username;
         this.password = password;
@@ -113,6 +118,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override

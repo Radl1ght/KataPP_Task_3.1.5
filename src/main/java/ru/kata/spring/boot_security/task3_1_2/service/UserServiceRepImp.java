@@ -20,11 +20,13 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
     @Autowired
-    public UserServiceRepImp(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceRepImp(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     @Transactional
@@ -38,6 +40,21 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+    @Transactional
+    @Override
+    public void add(User user, List <Long> roleIdList) {
+
+        if (roleIdList == null) {
+            Set<Role> roleSet = new HashSet<>();
+            roleSet.add(new Role(1L, "USER"));
+            user.setRoles(roleSet);
+        } else {
+            user.setRoles(roleService.getRolesSet(roleIdList));
+        }
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
 
 
     @Override
@@ -47,11 +64,17 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void update(long id, User updatedUser) {
+    public void update(long id, User updatedUser, List <Long> roleIdList) {
         User userOnUpdate = userRepository.findById(id).orElse(null);
         updatedUser.setId(id);
         assert userOnUpdate != null;
-        updatedUser.setRoles(userOnUpdate.getRoles());
+
+        if (roleIdList == null) {
+            updatedUser.setRoles(userOnUpdate.getRoles());
+        } else {
+            updatedUser.setRoles(roleService.getRolesSet(roleIdList));
+        }
+
         if (updatedUser.getPassword() == null || updatedUser.getPassword().equals("")) {
             updatedUser.setPassword(userOnUpdate.getPassword());
         } else {
