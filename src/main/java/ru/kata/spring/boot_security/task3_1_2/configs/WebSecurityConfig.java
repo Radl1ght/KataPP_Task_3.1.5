@@ -25,11 +25,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
                 .authorizeRequests()
                 .antMatchers("/", "/index").permitAll()
-                .antMatchers("/user/**").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/**", "/api/principal").access("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+                .antMatchers("/admin/**", "/api/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
@@ -46,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(getPasswordEncoder())
         ;
     }
+
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {

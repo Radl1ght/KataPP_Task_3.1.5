@@ -40,9 +40,10 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
+
     @Transactional
     @Override
-    public void add(User user, List <Long> roleIdList) {
+    public void add(User user, List<Long> roleIdList) {
 
         if (roleIdList == null) {
             Set<Role> roleSet = new HashSet<>();
@@ -64,7 +65,7 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void update(long id, User updatedUser, List <Long> roleIdList) {
+    public void update(long id, User updatedUser, List<Long> roleIdList) {
         User userOnUpdate = userRepository.findById(id).orElse(null);
         updatedUser.setId(id);
         assert userOnUpdate != null;
@@ -75,6 +76,24 @@ public class UserServiceRepImp implements UserService, UserDetailsService {
             updatedUser.setRoles(roleService.getRolesSet(roleIdList));
         }
 
+        if (updatedUser.getPassword() == null || updatedUser.getPassword().equals("")) {
+            updatedUser.setPassword(userOnUpdate.getPassword());
+        } else {
+            updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+        }
+        userRepository.save(updatedUser);
+    }
+
+    @Transactional
+    @Override
+    public void update(long id, User updatedUser) {
+        User userOnUpdate = userRepository.findById(id).orElse(null);
+        updatedUser.setId(id);
+        assert userOnUpdate != null;
+
+        if (updatedUser.getRoles().isEmpty()) {
+            updatedUser.setRoles(userOnUpdate.getRoles());
+        }
         if (updatedUser.getPassword() == null || updatedUser.getPassword().equals("")) {
             updatedUser.setPassword(userOnUpdate.getPassword());
         } else {
